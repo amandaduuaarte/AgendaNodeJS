@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Um teste</title>
-  </head>
+<%- include('includes/head') %> <%- include('includes/nav') %>
 
-  <body>
-    <section class="container">
-     
-      <form action="/" method="post">
-        <label>Cliente</label>
-        <input type="text" name="cliente">
-        <button>Submit</button>
-      </form>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Agenda</h1>
+      <p class="text-center lead">Contatos abaixo</p>
 
-    <script src="./assets/js/bundle.js"></script>
-  </body>
-</html>
+      <div class="row">
+        <div class="col my-3">
+          <div class="alert alert-danger text-center">Erro qualquer</div>
+        </div>
+      </div>
+
+      <div class="responsive-table">
+        <table class="table my-3">
+          <tr>
+            <td>Amanda</td>
+            <td>Lucas</td>
+            <td>Bruna</td>
+            <td>Alface</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>
