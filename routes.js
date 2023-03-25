@@ -1,11 +1,14 @@
 const express = require("express");
-const router = express.Router();
+const route = express.Router();
 
 const { homeController } = require("./src/controllers/homeController");
-const { secondController } = require("./src/controllers/secondController");
+const { loginController } = require("./src/controllers/loginController");
+const { registerController } = require("./src/controllers/registerController");
 
-router.get("/", homeController);
+route.get("/", homeController);
 
-router.get("/second/:id?", secondController);
+route.get("/login", loginController);
 
-module.exports = router;
+route.post("/register", registerController);
+
+module.exports = route;

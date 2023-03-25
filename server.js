@@ -12,13 +12,16 @@ mongoose
     app.emit("ready");
   });
 
+app.use(express.urlencoded({ extended: true }));
+
 const routes = require("./routes");
 const path = require("path");
+
+app.use(express.json());
 
 const { globalMiddleware } = require("./src/middlewares/middleware");
 
 app.use(routes);
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, "public")));
 
 app.set("views", path.resolve(__dirname, "src", "views"));
