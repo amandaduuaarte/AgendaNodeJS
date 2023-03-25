@@ -14,6 +14,10 @@ mongoose
 
 app.use(express.urlencoded({ extended: true }));
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const flasMessages = require("connect-flash");
+
 const routes = require("./routes");
 const path = require("path");
 
@@ -23,6 +27,20 @@ const { globalMiddleware } = require("./src/middlewares/middleware");
 
 app.use(routes);
 app.use(express.static(path.resolve(__dirname, "public")));
+
+const sessionOptions = session({
+  secret: "sjgfgjrthrtrtrtwfsdfsc",
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOly: true,
+  },
+});
+
+app.use(sessionOptions);
+app.use(flash());
 
 app.set("views", path.resolve(__dirname, "src", "views"));
 app.set("view engine", "ejs");
