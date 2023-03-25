@@ -1,18 +1,26 @@
 const Register = require("../models/RegisterModel");
 
 const registerController = async (req, res) => {
-  register = new Register(req.body);
-  await register.register();
+  try {
+    register = new Register(req.body);
+    await register.register();
 
-  if (register.errors.length > 0) {
-    req.flash("Register", register.errors);
+    if (register.errors.length > 0) {
+      req.flash("errors", register.errors);
+      req.session.save(() => {
+        return res.redirect("back");
+      });
+      return;
+    }
 
+    req.flash("success", register.success);
     req.session.save(() => {
-      return res.redirect("back");
+      return res.redirect("/");
     });
-    return;
+  } catch (error) {
+    console.log(error);
+    return res.render("404");
   }
-  res.send(register.registerUser);
 };
 
 module.exports = { registerController };

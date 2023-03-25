@@ -13,6 +13,7 @@ class Register {
     this.body = body;
     this.errors = [];
     this.user = null;
+    this.success = "Usuario cadastrado com sucesso";
   }
 
   async register() {

@@ -1,4 +1,7 @@
 exports.globalMiddleware = (req, res, next) => {
-  console.log("Middleware Global");
+  console.log("global middleware");
+
+  res.locals.errors = req.flash("errors");
+  res.locals.success = req.flash("success");
   next();
 };
