@@ -1,8 +1,36 @@
-const mongoose = require("mongoose");
+const { Users }  = require("./RegisterModel");
+const bcrypt = require("bcryptjs");
 
-const LoginSchema = new mongoose.Schema({
-  titulo: { type: String, required: true },
-  descricao: String,
-});
 
-const LoginModel = mongoose.model("Login", LoginSchema);
+class Login {
+  constructor(body) {
+    this.body = body;
+    this.errors = [];
+    this.success = 'Login realizado com sucesso!';
+    this.user = null;
+  }
+
+  async logar() {
+    if (this.errors.length > 0) return;
+    this.user = await Users.findOne({ email: this.body.email });
+
+    this.validateUser();
+
+    if (this.errors.length > 0) return;
+
+    if (!bcrypt.compareSync(this.body.password, this.user.password)) {
+      this.errors.push('Credencias invalidas');
+      return;
+    }
+  }
+
+  async validateUser() {
+    if (this.errors.length > 0) return;
+    const user = await Users.findOne({ email: this.body.email })
+   
+    if (!!user) this.errors.push('Usuário não cadastrado');
+  }
+}
+
+
+module.exports = Login;

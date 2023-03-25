@@ -1,6 +1,12 @@
-const Register = require("../models/RegisterModel");
+const { Register }  = require("../models/RegisterModel");
+
+
+const registerIndexController = async (req, res) => {
+  res.render("singup");
+}
 
 const registerController = async (req, res) => {
+
   try {
     register = new Register(req.body);
     await register.register();
@@ -23,4 +29,4 @@ const registerController = async (req, res) => {
   }
 };
 
-module.exports = { registerController };
+module.exports = { registerIndexController, registerController };
