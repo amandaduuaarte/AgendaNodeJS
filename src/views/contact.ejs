@@ -1,0 +1,65 @@
+<%- include('includes/head') %> <%- include('includes/nav') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8 my-3">
+      <%- include('includes/messagens') -%>
+
+      <h2 class="text-center">Cadastre um novo contato na sua agenda</h2>
+      <form action="/contact" method="post">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Nome do contato</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+          />
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Sobrenome do contato</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="lastName"
+            />
+          </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Email do contato</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            name="email"
+          />
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Numero de telefone do contato</label
+            >
+            <input
+              type="tell"
+              class="form-control"
+              id="exampleInputEmail1"
+              name="phone"
+            />
+          </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </form>
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

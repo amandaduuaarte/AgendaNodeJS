@@ -14,7 +14,7 @@ class Register {
   constructor(body) {
     this.body = body;
     this.errors = [];
-    this.user = null;
+    this.registerUser = null;
     this.success = "Usuario cadastrado com sucesso";
   }
 
@@ -30,7 +30,7 @@ class Register {
     this.body.password = bcrypt.hashSync(this.body.password, salt);
 
     this.registerUser = await RegisterModel.create(this.body);
-    
+
   }
 
   async userExists() {
