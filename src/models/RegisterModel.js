@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 const RegisterSchema = new mongoose.Schema({
+  userName: {type: String, required: true},
   email: { type: String, required: true },
   password: { type: String, required: true },
 });
@@ -29,16 +30,19 @@ class Register {
     this.body.password = bcrypt.hashSync(this.body.password, salt);
 
     this.registerUser = await RegisterModel.create(this.body);
-   
+    
   }
 
   async userExists() {
-    const user = await RegisterModel.findOne({ email: this.body.email })
+    const userExist = await RegisterModel.findOne({ email: this.body.email })
+    const userName = await RegisterModel.findOne({ userName: this.body.userName })
     
-    if(user) this.errors.push("Usuário já cadastrado")
+    if(userExist && userName) this.errors.push("Usuário já cadastrado")
   }
   validation() {
     this.cleanUp();
+
+    if (!this.body.userName) this.errors.push("Nome de usuario invalido invalido");
 
     if (!validator.isEmail(this.body.email))
       this.errors.push("E-mail inválido");
@@ -56,6 +60,7 @@ class Register {
     }
 
     this.body = {
+      userName : this.body.userName,
       email: this.body.email,
       password: this.body.password,
     };

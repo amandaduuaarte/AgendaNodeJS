@@ -1,7 +1,8 @@
 const Login = require('../models/LoginModel');
 
 const loginIndexController = (req, res) => {
-  res.render("login");
+  if (req.session.user) return res.render('/');
+  return res.render("login");
 }
 const loginController = async (req, res) => {
  
@@ -19,7 +20,6 @@ const loginController = async (req, res) => {
     }
 
     req.flash("success", login.success);
-    //Creat user session
     req.session.user = login.user;
 
     req.session.save(() => {
@@ -33,4 +33,9 @@ const loginController = async (req, res) => {
 
 };
 
-module.exports = { loginIndexController, loginController };
+const logoutController = (req, res) => { 
+  req.session.destroy();
+  res.redirect("/login");
+}
+
+module.exports = { loginIndexController, loginController, logoutController };

@@ -12,9 +12,9 @@ class Login {
 
   async logar() {
     if (this.errors.length > 0) return;
-    this.user = await Users.findOne({ email: this.body.email });
-
+    
     this.validateUser();
+    this.user = await Users.findOne({ email: this.body.email });
 
     if (this.errors.length > 0) return;
 
@@ -25,10 +25,9 @@ class Login {
   }
 
   async validateUser() {
-    if (this.errors.length > 0) return;
     const user = await Users.findOne({ email: this.body.email })
-   
-    if (!!user) this.errors.push('Usuário não cadastrado');
+    
+    if (!!user === false) this.errors.push('Usuário não cadastrado');
   }
 }
 
