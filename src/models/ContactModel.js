@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const ContactSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -18,6 +19,14 @@ class Contact {
     this.contact = null;
     this.success = 'Contato cadastrado com sucesso';
   }
+
+ static async searchContactForId (id) { 
+    if (typeof id !== "string") return; 
+    const user = await ContactModel.findById(id);
+
+   if (!user) return;
+    return user;
+  }
     
    async constactRegister() {
        this.validation();
@@ -31,7 +40,7 @@ class Contact {
    }
     
    async contactExists() {
-    const contactExist = await ContactModel.findOne({ contactEmail: this.body.contactEmail })
+    const contactExist = await ContactModel.findOne({ mail: this.body.email })
     
     if(contactExist) this.errors.push("Contato já cadastrado")
    }
@@ -39,16 +48,16 @@ class Contact {
    validation() {
     this.cleanUp();
 
-       if (!this.body.contactName) this.errors.push("Nome do contato é obrigatório");
+       if (!this.body.name) this.errors.push("Nome do contato é obrigatório");
        
-       if (!this.body.contactPhone && !this.body.contactEmail) this.errors.push("Telefone ou o E-mail do contato deve ser adicionado");
+       if (!this.body.phone && !this.body.email) this.errors.push("Telefone ou o E-mail do contato deve ser adicionado");
 
-       if (this.body.contactEmail) {
-           if (!validator.isEmail(this.body.contactEmail)) this.errors.push("E-mail inválido");
+       if (this.body.email) {
+           if (!validator.isEmail(this.body.email)) this.errors.push("E-mail inválido");
        }
 
-    if (this.body.contactPhone) {
-        if(this.body.phoneContact.length < 9 || this.body.password.length > 11) this.errors.push("Número de telefone inválido");
+    if (this.body.phone) {
+        if(this.body.phone.length < 9 || this.body.phone.length > 11) this.errors.push("Número de telefone inválido");
     }
    }
     

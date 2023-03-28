@@ -5,8 +5,10 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8 my-3">
       <%- include('includes/messagens') -%>
+      
+      <h2 class="text-center">Oi, <%= contact.name %>. Cadastre um novo contato na sua agenda</h2>
+     
 
-      <h2 class="text-center">Cadastre um novo contato na sua agenda</h2>
       <form action="/contact" method="post">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label"

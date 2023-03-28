@@ -1,7 +1,9 @@
 const Contact = require('../models/ContactModel');
 
 const contactIndexController = async (req, res) => { 
-    res.render("contact")
+  res.render("contact", {
+      contact: {}
+    })
 }
 
 const contactController = async (req, res) => { 
@@ -12,13 +14,14 @@ const contactController = async (req, res) => {
     
         if (contact.errors.length > 0) {
             req.flash('errors', contact.errors);
-            req.session.save(() => res.rendirect('back'));
+            req.session.save(() => res.redirect('back'));
             return;
         }
     
-        req.flash('success', contact.success);
+    req.flash('success', contact.success);
+    req.session.contacts = contact.contact;
       req.session.save(() => {
-        return res.redirect("/");
+        return res.redirect(`/contact/${contact.contact._id}`);
     });
     } catch (err) { 
       console.log(err);
@@ -27,4 +30,17 @@ const contactController = async (req, res) => {
    
 }
 
-module.exports = {contactIndexController, contactController}
+const contactEditController = async (req, res) => {
+ 
+  if (!req.params.id) return res.render('404');
+
+  const user = await Contact.searchContactForId(req.params.id);
+  if (!user) return res.render('404');
+ 
+  console.log(user);
+
+  res.render("contact", {
+    contact: user
+  })
+}
+module.exports = {contactIndexController, contactController, contactEditController}
