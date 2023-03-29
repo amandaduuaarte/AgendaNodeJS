@@ -47,7 +47,7 @@ class Register {
     if (!validator.isEmail(this.body.email))
       this.errors.push("E-mail inválido");
 
-    if (this.body.password.length < 4 || this.body.password.length > 50) {
+    if (this.body.password.length < 4) {
       this.errors.push("Senha invalida");
     }
   }

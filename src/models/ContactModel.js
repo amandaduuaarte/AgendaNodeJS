@@ -3,7 +3,7 @@ const validator = require("validator");
 
 const ContactSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    LastName: { type: String, required: false, default: '' },
+    lastName: { type: String, required: false, default: '' },
     email: { type: String, required: false, default: '' },
     phone: { type: String, required: false, default: '' },
     createdAt: { type: Date, required: false, default: Date.now() },
@@ -20,13 +20,15 @@ class Contact {
     this.success = 'Contato cadastrado com sucesso';
   }
 
- static async searchContactForId (id) { 
-    if (typeof id !== "string") return; 
-    const user = await ContactModel.findById(id);
+ async editContactInfos(id) {
+   if (typeof id !== "string") return; 
+   
+   this.validation();
 
-   if (!user) return;
-    return user;
-  }
+  if (this.errors.length > 0) return;
+  this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
+ }
+    
     
    async constactRegister() {
        this.validation();
@@ -37,6 +39,7 @@ class Contact {
        if (this.errors.length > 0) return; 
        
      this.contact = await ContactModel.create(this.body);
+     console.log('Register', this.contact);
    }
     
    async contactExists() {
@@ -57,7 +60,7 @@ class Contact {
        }
 
     if (this.body.phone) {
-        if(this.body.phone.length < 9 || this.body.phone.length > 11) this.errors.push("Número de telefone inválido");
+        if(this.body.phone.length < 8) this.errors.push("Número de telefone inválido");
     }
    }
     
@@ -74,8 +77,22 @@ class Contact {
       email: this.body.email,
       phone: this.body.phone,
     };
-  }
-    
+   }
+  
+   static async searchContactForId (id) { 
+    if (typeof id !== "string") return; 
+   const contactRegister = await ContactModel.findById(id);
+   
+   return contactRegister;
+ }
+  
+ static async searchContacts () { 
+ const contacts = await ContactModel.find().sort({ createdAt: -1 });
+
+ return contacts;
+}
+
+
 }
 
 module.exports = Contact;
