@@ -7,8 +7,8 @@
       <%- include('includes/messagens') -%>
 
       <h1 class="text-center">Agenda</h1>
-      <p class="text-center lead"><%= user.userName %>, seus contatos abaixo</p>
 
+      <% if(contacts.length > 0 ) { %>
       <div class="responsive-table">
         <table class="table my-3">
 
@@ -19,12 +19,15 @@
               <td><%= contact.email%></td>
               <td><%= contact.phone%></td>
               <td><a href="/contact/index/<%= contact._id %>">Editar</a></td>
-              <td><a class="text-danger" href="/contact/index/delete/<%= contact._id %>">Excluir</a></td>
+              <td><a class="text-danger" href="/contact/delete/<%= contact._id %>">Excluir</a></td>
             </tr>
             <% }); %>
             
         </table>
       </div>
+      <% } else { %>
+        <h3 class="text-center lead"> Sem contatos na sua agenda</h3>
+      <% } %>
     </div>
 
     <div class="col-lg-2"></div>

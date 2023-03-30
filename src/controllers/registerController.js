@@ -6,13 +6,14 @@ const registerIndexController = async (req, res) => {
 }
 
 const registerController = async (req, res) => {
+
   try {
     register = new Register(req.body);
     await register.register();
 
     if (register.errors.length > 0) {
       req.flash("errors", register.errors);
-      req.session.save(() => {
+      req.session.save(function () {
         return res.redirect("back");
       });
       return;
@@ -20,7 +21,7 @@ const registerController = async (req, res) => {
 
     req.flash("success", register.success);
     req.session.user = register.registerUser;
-    req.session.save(() => {
+    req.session.save(function (){
       return res.redirect("/");
     });
   } catch (error) {

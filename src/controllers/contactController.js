@@ -14,13 +14,15 @@ const contactController = async (req, res) => {
     
     if (contact.errors.length > 0) {
         req.flash('errors', contact.errors);
-        req.session.save(() => res.redirect('back'));
+      req.session.save(function () {
+        res.redirect('back')
+      });
       return;
     }
     
     req.flash('success', contact.success);
     req.session.contacts = contact.contact;
-      req.session.save(() => {
+      req.session.save(function () {
         return res.redirect(`/contact/index/${contact.contact._id}`);
     });
     } catch (err) { 
@@ -36,8 +38,6 @@ const contactRenderByIdController = async (req, res) => {
   const contactRegister = await Contact.searchContactForId(req.params.id);
   if (!contactRegister) return res.render('404');
 
-  console.log('aqui',contactRegister)
-
   res.render("contact", { contact: contactRegister })
 }
 
@@ -50,14 +50,16 @@ const contactEditController = async (req, res) => {
   
     if (contact.errors.length > 0) {
       req.flash('errors', contact.errors);
-      req.session.save(() => res.redirect('back'));
+      req.session.save(function (){
+        res.redirect('back')
+      });
       return;
     }
   
     req.flash('success', contact.success);
     req.session.contacts = contact.contact;
 
-    req.session.save(() => {
+    req.session.save(function () {
       return res.redirect(`/contact/index/${contact.contact._id}`);
     })
   } catch (error) {
@@ -67,4 +69,17 @@ const contactEditController = async (req, res) => {
   
 }
 
-module.exports = {contactIndexController, contactController, contactRenderByIdController, contactEditController}
+
+const contactDeleteController = async (req, res) => { 
+  if (!req.params.id) return res.render('404');
+
+  const contactForDelete = await Contact.deleteContacts(req.params.id);
+  if (!contactForDelete) return res.render('404');
+
+  req.flash('success', 'Contato deletado com sucesso.');
+      req.session.save(function () {
+        return res.redirect('back');
+    });
+}
+
+module.exports = {contactIndexController, contactController, contactRenderByIdController, contactEditController, contactDeleteController}

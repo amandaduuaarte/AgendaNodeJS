@@ -13,7 +13,7 @@ const loginController = async (req, res) => {
     if (login.errors.length > 0) {
       req.flash("errors", login.errors);
 
-      req.session.save(() => {
+      req.session.save(function () {
         return res.redirect("back");
       });
       return;
@@ -22,7 +22,7 @@ const loginController = async (req, res) => {
     req.flash("success", login.success);
     req.session.user = login.user;
 
-    req.session.save(() => {
+    req.session.save(function () {
       return res.redirect("/");
     });
 
@@ -34,8 +34,13 @@ const loginController = async (req, res) => {
 };
 
 const logoutController = (req, res) => { 
-  req.session.destroy();
-  res.redirect("/login");
+    req.session.destroy(function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.redirect('/login');
+      }
+    });
 }
 
 module.exports = { loginIndexController, loginController, logoutController };

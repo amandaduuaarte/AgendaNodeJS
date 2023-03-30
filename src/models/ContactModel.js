@@ -39,7 +39,6 @@ class Contact {
        if (this.errors.length > 0) return; 
        
      this.contact = await ContactModel.create(this.body);
-     console.log('Register', this.contact);
    }
     
    async contactExists() {
@@ -92,6 +91,13 @@ class Contact {
  return contacts;
 }
 
+  static async deleteContacts(id) { 
+  if (typeof id !== "string") return; 
+
+  const contacts = await await ContactModel.findOneAndDelete({_id: id});
+ 
+  return contacts;
+ }
 
 }
 
