@@ -18,12 +18,15 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 
+const csrf = require("csurf");
+const helmet = require("helmet");
+
 const routes = require("./routes");
 const path = require("path");
 
 app.use(express.json());
 
-const { globalMiddleware } = require("./src/middlewares/middleware");
+const { globalMiddleware, checkCsrfErrors, checkCsrfMiddleware } = require("./src/middlewares/middleware");
 
 const sessionOptions = session({
   secret: "sjgfgjrthrtrtrtwfsdfsc",
@@ -32,20 +35,27 @@ const sessionOptions = session({
   saveUninitialized: false,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7,
-    httpOly: true,
+    httpOnly: true,
   },
 });
 
 app.use(sessionOptions);
 app.use(flash());
 
-app.use(globalMiddleware);
-
-app.use(routes);
 app.use(express.static(path.resolve(__dirname, "public")));
 
 app.set("views", path.resolve(__dirname, "src", "views"));
 app.set("view engine", "ejs");
+
+app.use(csrf());
+app.use(helmet());
+
+app.use(globalMiddleware);
+app.use(checkCsrfErrors);
+app.use(checkCsrfMiddleware);
+
+
+app.use(routes);
 
 app.on("ready", () => {
   app.listen(3030, () => {

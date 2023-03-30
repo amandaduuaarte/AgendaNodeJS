@@ -8,7 +8,7 @@ const registerIndexController = async (req, res) => {
 const registerController = async (req, res) => {
 
   try {
-    register = new Register(req.body);
+   const register = new Register(req.body);
     await register.register();
 
     if (register.errors.length > 0) {

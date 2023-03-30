@@ -1,13 +1,13 @@
 const Login = require('../models/LoginModel');
 
 const loginIndexController = (req, res) => {
-  if (req.session.user) return res.render('/');
+  if (req.session.user) return res.redirect('/');
   return res.render("login");
 }
 const loginController = async (req, res) => {
  
   try {
-    login = new Login(req.body);
+    const login = new Login(req.body);
     await login.logar();
 
     if (login.errors.length > 0) {
@@ -38,7 +38,7 @@ const logoutController = (req, res) => {
       if(err) {
         console.log(err);
       } else {
-        res.redirect('/login');
+        res.redirect('/');
       }
     });
 }

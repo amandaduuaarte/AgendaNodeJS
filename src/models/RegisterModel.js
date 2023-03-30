@@ -8,7 +8,7 @@ const RegisterSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-const RegisterModel = mongoose.model("Users", RegisterSchema);
+const RegisterModel = mongoose.model("User", RegisterSchema);
 
 class Register {
   constructor(body) {
@@ -34,21 +34,23 @@ class Register {
   }
 
   async userExists() {
-    const userExist = await RegisterModel.findOne({ email: this.body.email })
-    const userName = await RegisterModel.findOne({ userName: this.body.userName })
+    const user = await RegisterModel.findOne({
+      $or: [{ email: this.body.email }, { userName: this.body.userName }]
+    });
     
-    if(userExist && userName) this.errors.push("Usuário já cadastrado")
+    if (user) this.errors.push("Usuário já cadastrado");
   }
+  
   validation() {
     this.cleanUp();
 
-    if (!this.body.userName) this.errors.push("Nome de usuario invalido invalido");
+    if (!this.body.userName) this.errors.push("Nome de usuário inválido");
 
     if (!validator.isEmail(this.body.email))
       this.errors.push("E-mail inválido");
 
     if (this.body.password.length < 4) {
-      this.errors.push("Senha invalida");
+      this.errors.push("Senha inválida");
     }
   }
 
@@ -67,4 +69,4 @@ class Register {
   }
 }
 
-module.exports = { Register, Users: RegisterModel};
+module.exports = { Register, User: RegisterModel};
