@@ -69,4 +69,4 @@ class Register {
   }
 }
 
-module.exports = { Register, User: RegisterModel};
+module.exports = { Register, Users: RegisterModel};
