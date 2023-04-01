@@ -2,8 +2,8 @@
 📄<br>README Template
 </h1>
 
-## 📚 Template Node Js - EJS
-Esse Projeto serviu para desenvolver minhas habilidades atuando com Node JS desde o básico, com um projetinho simples que foi feito para a configuração base de outros sistemas que usem Node JS e EJS na sua composição. 
+## 📚 Agenda Node.Js - EJS
+This project was developed to improve my skills working with Node.js from the basics, with a simple project that was made to practice my knowledge in node.js.
 
 ---
 
@@ -15,17 +15,22 @@ Esse Projeto serviu para desenvolver minhas habilidades atuando com Node JS desd
 
 ---
 
-### Usados aqui: 
+### Used here:
 
 * Node JS
 * JavaScript
 * EJS 
 * Mongoose
 
-## ☕ Seja um dos contribuidores
+## Functionalities that are implemented in the project:
+
+* SignUp and SignIn.
+* Crud (Create, Read, Update and Delete).
+
+## ☕ Be one of the contributors
 
 Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contribuir.<br>
 
-## 🍜 Licença
+## 🍜 License
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.<br>
