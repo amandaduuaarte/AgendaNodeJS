@@ -14,7 +14,6 @@ const {
   checkCsrfMiddleware,
 } = require("./src/middlewares/middleware");
 
-// Configuração do MongoDB
 mongoose
   .connect(process.env.CONNECTIONSTRING, {
     useNewUrlParser: true,
