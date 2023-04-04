@@ -1,14 +1,12 @@
-const { Register }  = require("../models/RegisterModel");
-
+const { Register } = require("../models/RegisterModel");
 
 const registerIndexController = async (req, res) => {
   res.render("singup");
-}
+};
 
 const registerController = async (req, res) => {
-
   try {
-   const register = new Register(req.body);
+    const register = new Register(req.body);
     await register.register();
 
     if (register.errors.length > 0) {
@@ -21,7 +19,7 @@ const registerController = async (req, res) => {
 
     req.flash("success", register.success);
     req.session.user = register.registerUser;
-    req.session.save(function (){
+    req.session.save(function () {
       return res.redirect("/");
     });
   } catch (error) {

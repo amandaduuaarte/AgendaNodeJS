@@ -1,11 +1,10 @@
-const Login = require('../models/LoginModel');
+const Login = require("../models/LoginModel");
 
 const loginIndexController = (req, res) => {
-  if (req.session.user) return res.redirect('/');
+  if (req.session.user) return res.redirect("/");
   return res.render("login");
-}
+};
 const loginController = async (req, res) => {
- 
   try {
     const login = new Login(req.body);
     await login.logar();
@@ -13,7 +12,7 @@ const loginController = async (req, res) => {
     if (login.errors.length > 0) {
       req.flash("errors", login.errors);
 
-      req.session.save( () => {
+      req.session.save(() => {
         return res.redirect("/login");
       });
       return;
@@ -25,22 +24,20 @@ const loginController = async (req, res) => {
     req.session.save(function () {
       return res.redirect("/");
     });
-
   } catch (error) {
     console.log(error);
     return res.render("404");
   }
-
 };
 
-const logoutController = (req, res) => { 
-    req.session.destroy(function(err) {
-      if(err) {
-        console.log(err);
-      } else {
-        res.redirect('/');
-      }
-    });
-}
+const logoutController = (req, res) => {
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+};
 
 module.exports = { loginIndexController, loginController, logoutController };

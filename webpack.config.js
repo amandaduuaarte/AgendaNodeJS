@@ -1,11 +1,11 @@
-const path = require("path"); // CommonJS
+const path = require('path'); // CommonJS
 
 module.exports = {
-  mode: "production",
-  entry: "./frontend/main.js",
+  mode: 'production',
+  entry: './frontend/main.js',
   output: {
-    path: path.resolve(__dirname, "public", "assets", "js"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'public', 'assets', 'js'),
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -13,17 +13,17 @@ module.exports = {
         exclude: /node_modules/,
         test: /\.js$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/env"],
+            presets: ['@babel/env'],
           },
         },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
-  devtool: "source-map",
+  devtool: 'source-map',
 };

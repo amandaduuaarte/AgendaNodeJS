@@ -8,21 +8,26 @@ const flash = require("connect-flash");
 const csrf = require("csurf");
 const helmet = require("helmet");
 const path = require("path");
-const { globalMiddleware, checkCsrfErrors, checkCsrfMiddleware } = require("./src/middlewares/middleware");
+const {
+  globalMiddleware,
+  checkCsrfErrors,
+  checkCsrfMiddleware,
+} = require("./src/middlewares/middleware");
 
 // Configuração do MongoDB
-mongoose.connect(process.env.CONNECTIONSTRING, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  app.listen(3030, () => {
-    console.log("Listening on port 3030");
+mongoose
+  .connect(process.env.CONNECTIONSTRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(3030, () => {
+      console.log("Listening on port 3030");
+    });
+  })
+  .catch((err) => {
+    console.error(err);
   });
-})
-.catch(err => {
-  console.error(err);
-});
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -56,4 +61,3 @@ app.use(checkCsrfMiddleware);
 
 const routes = require("./routes");
 app.use(routes);
-

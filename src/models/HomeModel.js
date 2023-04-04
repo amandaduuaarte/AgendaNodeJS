@@ -5,4 +5,4 @@ const HomeSchema = new mongoose.Schema({
   descricao: String,
 });
 
-const HomeModel = mongoose.model("Home", HomeSchema);
+mongoose.model("Home", HomeSchema);

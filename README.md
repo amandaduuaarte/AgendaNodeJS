@@ -3,10 +3,10 @@
 </h1>
 
 ## 📚 Template Node Js - EJS
-Esse Projeto serviu para desenvolver minhas habilidades atuando com Node JS desde o básico, com um projetinho simples que foi feito para a configuração base de outros sistemas que usem Node JS e EJS na sua composição. 
+
+Esse Projeto serviu para desenvolver minhas habilidades atuando com Node JS desde o básico, com um projetinho simples que foi feito para a configuração base de outros sistemas que usem Node JS e EJS na sua composição.
 
 ---
-
 
 ## README
 
@@ -15,12 +15,12 @@ Esse Projeto serviu para desenvolver minhas habilidades atuando com Node JS desd
 
 ---
 
-### Usados aqui: 
+### Usados aqui:
 
-* Node JS
-* JavaScript
-* EJS 
-* Mongoose
+- Node JS
+- JavaScript
+- EJS
+- Mongoose
 
 ## ☕ Seja um dos contribuidores
 

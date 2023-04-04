@@ -1,17 +1,17 @@
 <%- include('includes/head') %> <%- include('includes/nav') %>
 
 <div class="container">
+ 
   <div class="row">
     <div class="col-lg-2"></div>
 
     <div class="col-lg-8 my-3">
-      <h1 class="text-center">Login</h1>
-      <p class="text-center lead">Faça login</p>
+      <h1 class="text-center">Cadastro</h1>
+      <p class="text-center lead">Faça seu cadastro</p>
       <%- include('includes/messagens') -%>
 
       <div class="row">
         <div class="col-lg">
-          <h4>Faça seu cadastro</h4>
           <form action="/register" method="POST">
             <input type="hidden" name="_csrf" value=<%= csrfToken %>>
             <div class="mb-3">
