@@ -1,18 +1,18 @@
-require("dotenv").config();
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-const flash = require("connect-flash");
-const csrf = require("csurf");
-const helmet = require("helmet");
-const path = require("path");
+const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
+const csrf = require('csurf');
+const helmet = require('helmet');
+const path = require('path');
 const {
   globalMiddleware,
   checkCsrfErrors,
   checkCsrfMiddleware,
-} = require("./src/middlewares/middleware");
+} = require('./src/middlewares/middleware');
 
 mongoose
   .connect(process.env.CONNECTIONSTRING, {
@@ -21,7 +21,7 @@ mongoose
   })
   .then(() => {
     app.listen(3030, () => {
-      console.log("Listening on port 3030");
+      console.log('Listening on port 3030');
     });
   })
   .catch((err) => {
@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const sessionOptions = session({
-  secret: "sjgfgjrthrtrtrtwfsdfsc",
+  secret: 'sjgfgjrthrtrtrtwfsdfsc',
   store: MongoStore.create({ mongoUrl: process.env.CONNECTIONSTRING }),
   resave: false,
   saveUninitialized: false,
@@ -46,10 +46,10 @@ const sessionOptions = session({
 app.use(sessionOptions);
 app.use(flash());
 
-app.use(express.static(path.resolve(__dirname, "public")));
+app.use(express.static(path.resolve(__dirname, 'public')));
 
-app.set("views", path.resolve(__dirname, "src", "views"));
-app.set("view engine", "ejs");
+app.set('views', path.resolve(__dirname, 'src', 'views'));
+app.set('view engine', 'ejs');
 
 app.use(csrf());
 app.use(helmet());
@@ -58,5 +58,5 @@ app.use(globalMiddleware);
 app.use(checkCsrfErrors);
 app.use(checkCsrfMiddleware);
 
-const routes = require("./routes");
+const routes = require('./routes');
 app.use(routes);
