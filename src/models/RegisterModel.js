@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const RegisterSchema = new mongoose.Schema({
   userName: { type: String, required: true },
@@ -8,14 +8,14 @@ const RegisterSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-const RegisterModel = mongoose.model("User", RegisterSchema);
+const RegisterModel = mongoose.model('User', RegisterSchema);
 
 class Register {
   constructor(body) {
     this.body = body;
     this.errors = [];
     this.registerUser = null;
-    this.success = "Usuario cadastrado com sucesso";
+    this.success = 'Usuario cadastrado com sucesso';
   }
 
   async register() {
@@ -37,26 +37,26 @@ class Register {
       $or: [{ email: this.body.email }, { userName: this.body.userName }],
     });
 
-    if (user) this.errors.push("Usuário já cadastrado");
+    if (user) this.errors.push('Usuário já cadastrado');
   }
 
   validation() {
     this.cleanUp();
 
-    if (!this.body.userName) this.errors.push("Nome de usuário inválido");
+    if (!this.body.userName) this.errors.push('Nome de usuário inválido');
 
     if (!validator.isEmail(this.body.email))
-      this.errors.push("E-mail inválido");
+      this.errors.push('E-mail inválido');
 
     if (this.body.password.length < 4) {
-      this.errors.push("Senha inválida");
+      this.errors.push('Senha inválida');
     }
   }
 
   cleanUp() {
     for (const key in this.body) {
-      if (typeof this.body[key] !== "string") {
-        this.body[key] = "";
+      if (typeof this.body[key] !== 'string') {
+        this.body[key] = '';
       }
     }
 

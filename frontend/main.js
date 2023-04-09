@@ -1,10 +1,13 @@
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
-import "./assets/css/style.css";
+import './assets/css/style.css';
 
-import Login from "./modules/Login";
+import SingIn from './modules/SingIn';
+import SingUp from './modules/SingUp';
 
-const login = new Login(".form-login");
+const singIn = new SingIn('.form-login');
+const singUp = new SingUp('.form-register');
 
-login.init();
+singIn.init();
+singUp.init();
